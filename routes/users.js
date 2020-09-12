@@ -5,7 +5,6 @@ const ctrl = require('../controllers')
 //Views: Show (Profile), Register, Login, Edit/Delete
 
 // routes
-// index filter show create update destroy
 router.get('/', ctrl.users.index)
 //router.post('/results', ctrl.users.results)
 router.get('/:id', ctrl.users.show)
