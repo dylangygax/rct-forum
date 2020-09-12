@@ -1,0 +1,24 @@
+{
+  "name": "rct-forum-api",
+  "version": "1.0.0",
+  "description": "A forum for players of OpenRCT2, the open source re-implementation of Rollercoaster Tycoon 2.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylangygax/rct-forum-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dylangygax/rct-forum-api/issues"
+  },
+  "homepage": "https://github.com/dylangygax/rct-forum-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
