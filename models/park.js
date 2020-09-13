@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 //file*/ name*/ story/ USER*/ overview pic*/ SCREENSHOTS/ comments/ bool: published?/ date
+//REQUIRED: parkName, overviewPic, user
 const ParkSchema = new Schema({
     parkName: {type: String, required: true},
     //file here

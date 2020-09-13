@@ -19,6 +19,7 @@ const show = (req,res) => {
     })
 }
 
+//TO DO: should add screenshot to User, and should add to Park, if needed
 const create = (req, res) => {
     db.Screenshot.create(req.body, (err,createdScreenshot) => {
         if (err) console.log(`error in Screenshots#create: ${err}`)
@@ -27,6 +28,7 @@ const create = (req, res) => {
     })
 }
 
+//TO DO: should add to Park, if needed
 const update = (req, res) => {
     db.Screenshot.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedScreenshot) => {
         if (err) console.log(`error in Screenshots#update: ${err}`)
@@ -38,6 +40,7 @@ const update = (req, res) => {
     })
 }
 
+//TO DO: should delete screenshot from User, and from Park, if needed
 const destroy = (req, res) => {
     db.Screenshot.findByIdAndDelete(req.params.id, (err, deletedScreenshot) => {
         if (err) {

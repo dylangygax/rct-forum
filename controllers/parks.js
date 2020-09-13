@@ -19,14 +19,20 @@ const show = (req,res) => {
     })
 }
 
-const create = (req, res) => {
-    db.Park.create(req.body, (err,createdPark) => {
-        if (err) console.log(`error in parks#create: ${err}`)
-        //res.send(`park create called`)
-        res.status(200).json({park: createdPark})
-    })
+//TO DO: should add Park to User, and should add to each of its screenshots, if needed
+const create = async (req, res) => {
+    // db.Park.create(req.body, (err,createdPark) => {
+    //     if (err) console.log(`error in parks#create: ${err}`)
+    //     //res.send(`park create called`)
+    //     res.status(200).json({park: createdPark})
+    // })
+    const createdPark = await db.Park.create(req.body)
+    const userUpdateObject = { $push: {parks: createdPark._id}}
+    const foundUser = await db.User.findByIdAndUpdate(createdPark.user, userUpdateObject, {new: true})
+    res.status(200).json({park: createdPark, user: foundUser})
 }
 
+//TO DO: should add park to screenshots if those are included
 const update = (req, res) => {
     db.Park.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedPark) => {
         if (err) console.log(`error in parks#update: ${err}`)
@@ -38,6 +44,7 @@ const update = (req, res) => {
     })
 }
 
+//TO DO: should remove screenshot from User, and from Park, if needed
 const destroy = (req, res) => {
     db.Park.findByIdAndDelete(req.params.id, (err, deletedPark) => {
         if (err) {
