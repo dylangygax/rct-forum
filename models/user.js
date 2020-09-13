@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 //username*/ bio?/ SCREENSHOTS/ PARKS/ type? User or Admin
 
 const UserSchema = new Schema({
-    username: {type: String, required: true},
+    username: {type: String, required: true, unique: true},
     bio: {type: String, required: false},
     isAdmin: {type: Boolean, required: false, default: false},
     screenshots: [{type: mongoose.Schema.Types.ObjectId, 
