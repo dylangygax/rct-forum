@@ -2,7 +2,7 @@
 const db = require('../models')
 
 //controllers
-// index filter show create update destroy
+// index show create update destroy
 const index = (req, res) => {
     db.Park.find({}, (err, foundParks) => {
         if (err) console.log(`error in parks#index: ${err}`)
@@ -50,7 +50,7 @@ const destroy = (req, res) => {
 }
 
 //export
-// index filter show create update destroy
+// index show create update destroy
 module.exports = {
     index,
     show,
