@@ -29,6 +29,11 @@ const create = async (req, res) => {
     const createdPark = await db.Park.create(req.body)
     const userUpdateObject = { $push: {parks: createdPark._id}}
     const foundUser = await db.User.findByIdAndUpdate(createdPark.user, userUpdateObject, {new: true})
+    //CHECK WHETHER THIS IS BEST PRACTICE
+    createdPark.screenshots.forEach(async (screenshotId) => {
+        console.log(screenshotId)
+        let foundScreenshot = await db.Screenshot.findByIdAndUpdate(screenshotId, {park: createdPark._id}, {new: true})
+    });
     res.status(200).json({park: createdPark, user: foundUser})
 }
 

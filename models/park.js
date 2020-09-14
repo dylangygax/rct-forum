@@ -15,7 +15,7 @@ const ParkSchema = new Schema({
         required: false
     }],
     user: {type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Parks',
+        ref: 'User',
         required: true
     }
 })

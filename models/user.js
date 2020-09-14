@@ -12,7 +12,7 @@ const UserSchema = new Schema({
         required: false
     }],
     parks: [{type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Parks',
+        ref: 'Park',
         required: false
     }],
 })
