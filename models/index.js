@@ -15,5 +15,6 @@ mongoose.connect(connectionString, configOptions)
 module.exports = {
     User: require('./user'),
     Park: require('./park'),
-    Screenshot: require('./screenshot')
+    Screenshot: require('./screenshot'),
+    Comment: require('./comment')
 }

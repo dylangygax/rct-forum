@@ -11,6 +11,7 @@ app.use(express.json()) //JSON parsing
 app.use('/api/v1/users', routes.users)
 app.use('/api/v1/parks', routes.parks)
 app.use('/api/v1/screenshots', routes.screenshots)
+app.use('/api/v1/comments', routes.comments)
 
 //connection
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))

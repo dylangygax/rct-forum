@@ -6,7 +6,7 @@ const CommentSchema = new Schema({
         ref: 'User',
         required: true
     },
-    body: {type: String, required: false},
+    body: {type: String, required: true},
     datePublished: {type: Date, required: false},// may want to set required to true later
     park: {type: mongoose.Schema.Types.ObjectId, 
         ref: 'Park',
