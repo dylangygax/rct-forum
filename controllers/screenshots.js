@@ -2,6 +2,7 @@
 const db = require('../models')
 
 //controllers
+//REQUIRED: title, image, user
 // index show create update destroy
 const index = (req, res) => {
     db.Screenshot.find({}, (err, foundScreenshots) => {
@@ -20,12 +21,17 @@ const show = (req,res) => {
 }
 
 //TO DO: should add screenshot to User, and should add to Park, if needed
-const create = (req, res) => {
-    db.Screenshot.create(req.body, (err,createdScreenshot) => {
-        if (err) console.log(`error in Screenshots#create: ${err}`)
-        //res.send(`Screenshot create called`)
-        res.status(200).json({screenshot: createdScreenshot})
-    })
+const create = async (req, res) => {
+    // db.Screenshot.create(req.body, (err,createdScreenshot) => {
+    //     if (err) console.log(`error in Screenshots#create: ${err}`)
+    //     //res.send(`Screenshot create called`)
+    //     res.status(200).json({screenshot: createdScreenshot})
+    // })
+    const createdScreenshot = await db.Screenshot.create(req.body)
+    const updateObject = { $push: {screenshots: createdScreenshot._id}}
+    const foundUser = await db.User.findByIdAndUpdate(createdScreenshot.user, updateObject, {new: true})
+    const foundPark = await db.Park.findByIdAndUpdate(createdScreenshot.park, updateObject, {new: true})
+    res.status(200).json({screenshot: createdScreenshot, user: foundUser, park: foundPark})
 }
 
 //TO DO: should add to Park, if needed
