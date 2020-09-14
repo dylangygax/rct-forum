@@ -47,15 +47,22 @@ const update = (req, res) => {
 }
 
 //TO DO: should delete screenshot from User, and from Park, if needed
-const destroy = (req, res) => {
-    db.Screenshot.findByIdAndDelete(req.params.id, (err, deletedScreenshot) => {
-        if (err) {
-            console.log(`error in Screenshots#destroy: ${err}`)
-            res.send(`Screenshot destroy error`)
-        } else {
-            res.send(`Screenshot deleted successfully`)
-        }
-    })
+const destroy = async (req, res) => {
+    // db.Screenshot.findByIdAndDelete(req.params.id, (err, deletedScreenshot) => {
+    //     if (err) {
+    //         console.log(`error in Screenshots#destroy: ${err}`)
+    //         res.send(`Screenshot destroy error`)
+    //     } else {
+    //         res.send(`Screenshot deleted successfully`)
+    //     }
+    // })
+    const screenshotToDelete = await db.Screenshot.findById(req.params.id)
+    const updateObject = { $pull: {screenshots: screenshotToDelete._id}}
+    const foundUser = await db.User.findByIdAndUpdate(screenshotToDelete.user, updateObject, {new: true})
+    const foundPark = await db.Park.findByIdAndUpdate(screenshotToDelete.park, updateObject, {new: true})
+    //res.send(`Screenshot deleted successfully`)
+    await db.Park.findByIdAndDelete(req.params.id)
+    res.status(200).json({deletedScreenShotId: screenshotToDelete._id, user: foundUser, park: foundPark})
 }
 
 //export
