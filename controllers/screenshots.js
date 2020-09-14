@@ -1,5 +1,42 @@
 //require
 const db = require('../models')
+// const multer = require('multer')
+
+// //image upload
+// const DIR = './public/'
+
+// //stores a file in public to prepare for upload
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, DIR)
+//     },
+//     filename: (req, file, cb) => {
+//         const fileName = file.originalname.toLowerCase().split(' ').join('-')
+//         cb(null, uuidv4() + '-' + fileName)
+//     }
+// })
+
+// //
+// const upload = multer({
+//     storage: storage,
+//     fileFilter: (req, file, cb) => {
+//         if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+//             cb(null, true)
+//         } else {
+//             cb(null, false)
+//             return cb(new Error('Image must be in .png, .jpg or .jpeg format.'))
+//         }
+//     }
+// })
+
+
+
+
+
+
+
+
+
 
 //controllers
 //REQUIRED: title, image, user

@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 const routes = require('./routes')
 const PORT = /*process.env.PORT ||*/ 4000
-const cors = require('cors')//REMEBER TO CONFIGURE THIS
+const cors = require('cors')//REMEMBER TO CONFIGURE THIS
 
 
 //middleware
