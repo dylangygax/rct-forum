@@ -3,8 +3,11 @@ const express = require('express')
 const app = express()
 const routes = require('./routes')
 const PORT = /*process.env.PORT ||*/ 4000
+const cors = require('cors')//REMEBER TO CONFIGURE THIS
+
 
 //middleware
+app.use(cors())//REMEMBER TO CONFIGURE THIS
 app.use(express.json()) //JSON parsing
 
 //routes
