@@ -29,7 +29,7 @@ const create = async (req, res) => {
     //     res.status(200).json({comment: createdComment})
     // })
     const createdComment = await db.Comment.create(req.body)
-    const updateObject = { $push: {comments: createdComment._id}}
+    const updateObject = {$push: {comments: createdComment._id}}
     const foundUser = await db.User.findByIdAndUpdate(createdComment.user, updateObject, {new: true})
     //The case where it's a comment on a park
     if (createdComment.park) {
@@ -55,14 +55,21 @@ const update = (req, res) => {
 
 //TODO: need to pull from comments array for user it's by and park/screenshot it's on
 const destroy = async (req, res) => {
-    db.Comment.findByIdAndDelete(req.params.id, (err, deletedComment) => {
-        if (err) {
-            console.log(`error in Comments#destroy: ${err}`)
-            res.send(`Comment destroy error`)
-        } else {
-            res.send(`Comment deleted successfully`)
-        }
-    })
+    // db.Comment.findByIdAndDelete(req.params.id, (err, deletedComment) => {
+    //     if (err) {
+    //         console.log(`error in Comments#destroy: ${err}`)
+    //         res.send(`Comment destroy error`)
+    //     } else {
+    //         res.send(`Comment deleted successfully`)
+    //     }
+    // })
+    const commentToDelete = await db.Comment.findById(req.params.id)
+    const updateObject = {$pull: {comments: commentToDelete._id}}
+    const foundUser = await db.User.findByIdAndUpdate(commentToDelete.user, updateObject, {new: true})
+    const foundPark = await db.Park.findByIdAndUpdate(commentToDelete.park, updateObject, {new: true})
+    const foundScreenshot = await db.Screenshot.findByIdAndUpdate(commentToDelete.screenshot, updateObject, {new: true})
+    await db.Comment.findByIdAndDelete(req.params.id)
+    res.status(200).json({deletedCommentId: commentToDelete._id, user: foundUser, screenshot: foundScreenshot, park: foundPark})
 }
 
 //export
