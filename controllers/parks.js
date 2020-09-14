@@ -19,7 +19,6 @@ const show = (req,res) => {
     })
 }
 
-//TO DO: should add Park to User, and should add to each of its screenshots, if needed
 const create = async (req, res) => {
     // db.Park.create(req.body, (err,createdPark) => {
     //     if (err) console.log(`error in parks#create: ${err}`)
@@ -31,13 +30,12 @@ const create = async (req, res) => {
     const foundUser = await db.User.findByIdAndUpdate(createdPark.user, userUpdateObject, {new: true})
     //CHECK WHETHER THIS IS BEST PRACTICE
     createdPark.screenshots.forEach(async (screenshotId) => {
-        console.log(screenshotId)
         let foundScreenshot = await db.Screenshot.findByIdAndUpdate(screenshotId, {park: createdPark._id}, {new: true})
-    });
+    })
     res.status(200).json({park: createdPark, user: foundUser})
 }
 
-//TO DO: should add park to screenshots if those are included
+//CONSIDER?: should add park to screenshots if those are included. As of now you cannot update a park's screenshots from the parks update function
 const update = (req, res) => {
     db.Park.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, updatedPark) => {
         if (err) console.log(`error in parks#update: ${err}`)
@@ -49,16 +47,24 @@ const update = (req, res) => {
     })
 }
 
-//TO DO: should remove screenshot from User, and from Park, if needed
-const destroy = (req, res) => {
-    db.Park.findByIdAndDelete(req.params.id, (err, deletedPark) => {
-        if (err) {
-            console.log(`error in parks#destroy: ${err}`)
-            res.send(`park destroy error`)
-        } else {
-            res.send(`park deleted successfully`)
-        }
+//TO DO: should remove park from User, and from Screenshots, if needed
+const destroy = async (req, res) => {
+    // db.Park.findByIdAndDelete(req.params.id, (err, deletedPark) => {
+    //     if (err) {
+    //         console.log(`error in parks#destroy: ${err}`)
+    //         res.send(`park destroy error`)
+    //     } else {
+    //         res.send(`park deleted successfully`)
+    //     }
+    // })
+    const parkToDelete = await db.Park.findById(req.params.id)
+    const userUpdateObject = { $pull: {parks: parkToDelete._id}}
+    const foundUser = await db.User.findByIdAndUpdate(parkToDelete.user, userUpdateObject, {new: true})
+    parkToDelete.screenshots.forEach(async (screenshotId) => {
+        let foundScreenshot = await db.Screenshot.findByIdAndUpdate(screenshotId, {park: null}, {new: true})
     })
+    await db.Park.findByIdAndDelete(req.params.id)
+    res.send(`park deleted successfully`)
 }
 
 //export
