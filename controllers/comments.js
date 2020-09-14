@@ -22,12 +22,24 @@ const show = (req,res) => {
 }
 
 //TODO: need to push to comments array for user it's by and park/screenshot it's on
-const create = (req, res) => {
-    db.Comment.create(req.body, (err,createdComment) => {
-        if (err) console.log(`error in Comments#create: ${err}`)
-        //res.send(`Comment create called`)
-        res.status(200).json({comment: createdComment})
-    })
+const create = async (req, res) => {
+    // db.Comment.create(req.body, (err,createdComment) => {
+    //     if (err) console.log(`error in Comments#create: ${err}`)
+    //     //res.send(`Comment create called`)
+    //     res.status(200).json({comment: createdComment})
+    // })
+    const createdComment = await db.Comment.create(req.body)
+    const updateObject = { $push: {comments: createdComment._id}}
+    const foundUser = await db.User.findByIdAndUpdate(createdComment.user, updateObject, {new: true})
+    //The case where it's a comment on a park
+    if (createdComment.park) {
+        const foundPark = await db.Park.findByIdAndUpdate(createdComment.park, updateObject, {new: true})
+        res.status(200).json({comment: createdComment, user: foundUser, park: foundPark})
+    } else {
+        //The case where it's a comment on a screenshot
+        const foundScreenshot = await db.Screenshot.findByIdAndUpdate(createdComment.screenshot, updateObject, {new: true})
+        res.status(200).json({comment: createdComment, user: foundUser, screenshot: foundScreenshot})
+    }
 }
 
 const update = (req, res) => {

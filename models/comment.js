@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+//REQUIRED: user, body, (park OR screenshot)
 const CommentSchema = new Schema({
     user: {type: mongoose.Schema.Types.ObjectId, 
         ref: 'User',
