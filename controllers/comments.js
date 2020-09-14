@@ -3,6 +3,7 @@ const db = require('../models')
 
 //controllers
 // index filter show create update destroy
+//NOTE: probably not going to use this for anything
 const index = (req, res) => {
     db.Comment.find({}, (err, foundComments) => {
         if (err) console.log(`error in Comments#index: ${err}`)
@@ -11,6 +12,7 @@ const index = (req, res) => {
     })
 }
 
+//NOTE: should I display comments by Show or through one database call that filters by screenshot or park
 const show = (req,res) => {
     db.Comment.findById(req.params.id, (err, foundComment) => {
         if (err) console.log(`error in Comments#show: ${err}`)
@@ -19,6 +21,7 @@ const show = (req,res) => {
     })
 }
 
+//TODO: need to push to comments array for user it's by and park/screenshot it's on
 const create = (req, res) => {
     db.Comment.create(req.body, (err,createdComment) => {
         if (err) console.log(`error in Comments#create: ${err}`)
@@ -38,6 +41,7 @@ const update = (req, res) => {
     })
 }
 
+//TODO: need to pull from comments array for user it's by and park/screenshot it's on
 const destroy = async (req, res) => {
     db.Comment.findByIdAndDelete(req.params.id, (err, deletedComment) => {
         if (err) {

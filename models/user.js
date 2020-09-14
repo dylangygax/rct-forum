@@ -15,6 +15,10 @@ const UserSchema = new Schema({
         ref: 'Park',
         required: false
     }],
+    comments: [{type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Comment',
+        required: false
+    }]
 })
 
 const User = mongoose.model('User', UserSchema)

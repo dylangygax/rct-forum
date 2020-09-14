@@ -10,14 +10,18 @@ const ParkSchema = new Schema({
     overviewPic: {type: String, required: true}, //for now this is a URL
     isPublished: {type: Boolean, required: false, default: false},
     datePublished: {type: Date, required: false},
+    user: {type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        required: true
+    },
     screenshots: [{type: mongoose.Schema.Types.ObjectId, 
         ref: 'Screenshot',
         required: false
     }],
-    user: {type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User',
-        required: true
-    }
+    comments: [{type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Comment',
+        required: false
+    }]
 })
 
 const Park = mongoose.model('Park', ParkSchema)

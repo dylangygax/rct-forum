@@ -47,7 +47,7 @@ const update = (req, res) => {
     })
 }
 
-//TO DO: should remove park from User, and from Screenshots, if needed
+//TO DO: delete all the park's comments
 const destroy = async (req, res) => {
     // db.Park.findByIdAndDelete(req.params.id, (err, deletedPark) => {
     //     if (err) {

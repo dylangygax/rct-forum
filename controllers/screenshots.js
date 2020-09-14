@@ -20,7 +20,6 @@ const show = (req,res) => {
     })
 }
 
-//TO DO: should add screenshot to User, and should add to Park, if needed
 const create = async (req, res) => {
     // db.Screenshot.create(req.body, (err,createdScreenshot) => {
     //     if (err) console.log(`error in Screenshots#create: ${err}`)
@@ -46,7 +45,7 @@ const update = (req, res) => {
     })
 }
 
-//TO DO: should delete screenshot from User, and from Park, if needed
+//TO DO: delete all the screenshots's comments
 const destroy = async (req, res) => {
     // db.Screenshot.findByIdAndDelete(req.params.id, (err, deletedScreenshot) => {
     //     if (err) {
