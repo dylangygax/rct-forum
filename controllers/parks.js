@@ -63,8 +63,11 @@ const destroy = async (req, res) => {
     parkToDelete.screenshots.forEach(async (screenshotId) => {
         let foundScreenshot = await db.Screenshot.findByIdAndUpdate(screenshotId, {park: null}, {new: true})
     })
+    parkToDelete.comments.forEach(async (commentId) => {
+        await db.Comment.findByIdAndDelete(commentId)
+    })
     await db.Park.findByIdAndDelete(req.params.id)
-    res.send(`park deleted successfully`)
+    res.status(200).json({deletedParkId: parkToDelete.id, user: foundUser})
 }
 
 //export

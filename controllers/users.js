@@ -48,6 +48,9 @@ const destroy = async (req, res) => {
     //     }
     // })
     const userToDelete = await db.User.findById(req.params.id)
+    userToDelete.comments.forEach(async (commentId) => {
+        await db.Comment.findByIdAndDelete(commentId)
+    })
     userToDelete.screenshots.forEach(async (screenshotId) => {
         await db.Screenshot.findByIdAndDelete(screenshotId)
     })

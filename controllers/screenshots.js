@@ -59,6 +59,9 @@ const destroy = async (req, res) => {
     const updateObject = { $pull: {screenshots: screenshotToDelete._id}}
     const foundUser = await db.User.findByIdAndUpdate(screenshotToDelete.user, updateObject, {new: true})
     const foundPark = await db.Park.findByIdAndUpdate(screenshotToDelete.park, updateObject, {new: true})
+    screenshotToDelete.comments.forEach(async (commentId) => {
+        await db.Comment.findByIdAndDelete(commentId)
+    })
     //res.send(`Screenshot deleted successfully`)
     await db.Park.findByIdAndDelete(req.params.id)
     res.status(200).json({deletedScreenshotId: screenshotToDelete._id, user: foundUser, park: foundPark})
