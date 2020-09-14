@@ -38,15 +38,24 @@ const update = (req, res) => {
     })
 }
 
-const destroy = (req, res) => {
-    db.User.findByIdAndDelete(req.params.id, (err, deletedUser) => {
-        if (err) {
-            console.log(`error in users#destroy: ${err}`)
-            res.send(`user destroy error`)
-        } else {
-            res.send(`user deleted successfully`)
-        }
+const destroy = async (req, res) => {
+    // db.User.findByIdAndDelete(req.params.id, (err, deletedUser) => {
+    //     if (err) {
+    //         console.log(`error in users#destroy: ${err}`)
+    //         res.send(`user destroy error`)
+    //     } else {
+    //         res.send(`user deleted successfully`)
+    //     }
+    // })
+    const userToDelete = await db.User.findById(req.params.id)
+    userToDelete.screenshots.forEach(async (screenshotId) => {
+        await db.Screenshot.findByIdAndDelete(screenshotId)
     })
+    userToDelete.parks.forEach(async (parkId) => {
+        await db.Park.findByIdAndDelete(parkId)
+    })
+    await db.User.findByIdAndDelete(req.params.id)
+    res.status(200).json({deletedUserId: userToDelete._id})
 }
 
 //export
