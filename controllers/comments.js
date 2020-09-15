@@ -21,6 +21,17 @@ const show = (req,res) => {
     })
 }
 
+//for comments filtered by soem parameters
+const filter = (req,res) => {
+    //const body = req.body
+    const filterObject = {_id: {$in: req.body}}
+    db.Comment.find(filterObject, (err, foundComments) => {
+        if (err) console.log(`error in Comments#index: ${err}`)
+        //res.send('Comments index called!')
+        res.status(200).json({comments: foundComments})
+    })
+}
+
 //TODO: need to push to comments array for user it's by and park/screenshot it's on
 const create = async (req, res) => {
     // db.Comment.create(req.body, (err,createdComment) => {
@@ -77,6 +88,7 @@ const destroy = async (req, res) => {
 module.exports = {
     index,
     show,
+    filter,
     create,
     update,
     destroy
