@@ -90,9 +90,17 @@ const seed = async () => {
             park: createdParks[0]._id
         }
     ]
-    const createdScreenshots = await db.Screenshot.create(screenshotData)
+    const createdScreenshots = await Promise.all(screenshotData.map(async screenshot => {
+        return await fetch(`${REACT_APP_API_URL}/screenshots`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(screenshot)
+        }).then(res => res.json()).then(res => res.screenshot)
+    }))
     //Comments: REQUIRED: user, body, (park OR screenshot)
-    const commentsData = [
+    const commentData = [
         {
             user: createdUsers[0]._id,
             park: createdParks[2]._id,
@@ -129,7 +137,16 @@ const seed = async () => {
             body: "thnx"
         },
     ]
-    const createdComments = await db.Comment.create(commentsData)
+    const createdComments = await Promise.all(commentData.map(async comment => {
+        return await fetch(`${REACT_APP_API_URL}/comments`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(comment)
+        }).then(res => res.json()).then(res => res.comment)
+    }))
+    
     console.log({users: createdUsers, parks: createdParks, screenshots: createdScreenshots, comments: createdComments})
     process.exit()
 }
