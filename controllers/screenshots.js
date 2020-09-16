@@ -57,6 +57,15 @@ const show = (req,res) => {
     })
 }
 
+//for screenshots filtered by an array of IDs
+const filter = (req,res) => {
+    const filterObject = {_id: {$in: req.body}}
+    db.Screenshot.find(filterObject, (err, foundScreenshots) => {
+        if (err) console.log(`error in Screenshots#filter: ${err}`)
+        res.status(200).json({screenshots: foundScreenshots})
+    })
+}
+
 const create = async (req, res) => {
     // db.Screenshot.create(req.body, (err,createdScreenshot) => {
     //     if (err) console.log(`error in Screenshots#create: ${err}`)
@@ -109,6 +118,7 @@ const destroy = async (req, res) => {
 module.exports = {
     index,
     show,
+    filter,
     create,
     update,
     destroy

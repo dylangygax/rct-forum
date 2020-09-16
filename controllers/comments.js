@@ -26,8 +26,7 @@ const filter = (req,res) => {
     //const body = req.body
     const filterObject = {_id: {$in: req.body}}
     db.Comment.find(filterObject, (err, foundComments) => {
-        if (err) console.log(`error in Comments#index: ${err}`)
-        //res.send('Comments index called!')
+        if (err) console.log(`error in Comments#filter: ${err}`)
         res.status(200).json({comments: foundComments})
     })
 }

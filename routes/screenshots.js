@@ -6,6 +6,7 @@ const ctrl = require('../controllers')
 
 // routes
 router.get('/', ctrl.screenshots.index)
+router.post('/filter', ctrl.screenshots.filter)
 router.get('/:id', ctrl.screenshots.show)
 router.post('/', ctrl.screenshots.create)
 router.put('/:id', ctrl.screenshots.update)

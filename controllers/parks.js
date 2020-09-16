@@ -24,7 +24,7 @@ const show = (req,res) => {
 const filter = (req,res) => {
     const filterObject = {_id: {$in: req.body}}
     db.Park.find(filterObject, (err, foundParks) => {
-        if (err) console.log(`error in Comments#index: ${err}`)
+        if (err) console.log(`error in Parks#filter: ${err}`)
         res.status(200).json({parks: foundParks})
     })
 }
