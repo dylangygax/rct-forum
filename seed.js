@@ -17,21 +17,21 @@ const seed = async () => {
         {username: "DorkyDan"}
     ]
     const createdUsers = await db.User.create(userData)
-    //Parks: REQUIRED: parkName, overviewPic, user
+    //Parks: REQUIRED: title, image, user
     const parkData = [
         {
-            parkName: "ZDTs",
-            overviewPic: "https://i.imgur.com/MXXUQlH.png",
+            title: "ZDTs",
+            image: "https://i.imgur.com/MXXUQlH.png",
             user: createdUsers[0]._id
         },
         {
-            parkName: "Wrath of Bob",
-            overviewPic: "https://i.imgur.com/apM9WUy.png",
+            title: "Wrath of Bob",
+            image: "https://i.imgur.com/apM9WUy.png",
             user: createdUsers[0]._id
         },
         {
-            parkName: "Shoestring Caverns",
-            overviewPic: "https://i.imgur.com/gFZ77sM.png",
+            title: "Shoestring Caverns",
+            image: "https://i.imgur.com/gFZ77sM.png",
             user: createdUsers[1]._id
         }
     ]
