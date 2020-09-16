@@ -19,6 +19,16 @@ const show = (req,res) => {
     })
 }
 
+
+//for parks filtered by an array of IDs
+const filter = (req,res) => {
+    const filterObject = {_id: {$in: req.body}}
+    db.Park.find(filterObject, (err, foundParks) => {
+        if (err) console.log(`error in Comments#index: ${err}`)
+        res.status(200).json({parks: foundParks})
+    })
+}
+
 const create = async (req, res) => {
     // db.Park.create(req.body, (err,createdPark) => {
     //     if (err) console.log(`error in parks#create: ${err}`)
@@ -74,6 +84,7 @@ const destroy = async (req, res) => {
 // index show create update destroy
 module.exports = {
     index,
+    filter,
     show,
     create,
     update,

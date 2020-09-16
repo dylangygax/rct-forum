@@ -21,7 +21,7 @@ const show = (req,res) => {
     })
 }
 
-//for comments filtered by soem parameters
+//for comments filtered by an array of IDs
 const filter = (req,res) => {
     //const body = req.body
     const filterObject = {_id: {$in: req.body}}
