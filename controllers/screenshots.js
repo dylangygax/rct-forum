@@ -109,7 +109,8 @@ const destroy = async (req, res) => {
         await db.Comment.findByIdAndDelete(commentId)
     })
     //res.send(`Screenshot deleted successfully`)
-    await db.Park.findByIdAndDelete(req.params.id)
+    await db.Screenshot.findByIdAndDelete(screenshotToDelete._id)
+    console.log({deletedScreenshotId: screenshotToDelete._id, user: foundUser, park: foundPark})
     res.status(200).json({deletedScreenshotId: screenshotToDelete._id, user: foundUser, park: foundPark})
 }
 
