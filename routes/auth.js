@@ -8,7 +8,7 @@ const passport = require('../passport')
 //path: apli/v1/auth
 router.post('/register', ctrl.auth.register)
 router.post('/login', passport.authenticate('local'), ctrl.auth.login)
-//router.delete('/logout', ctrl.auth.logout)
+router.delete('/logout', ctrl.auth.logout)
 
 // exports
 module.exports = router
