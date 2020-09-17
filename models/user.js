@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt')
 //REQUIRED: username
 const UserSchema = new Schema({
     username: {type: String, required: true, unique: true},
+    password: {type: String, required: false},//SET TO REQUIRED LATER
     bio: {type: String, required: false},
     isAdmin: {type: Boolean, required: false, default: false},
     screenshots: [{type: mongoose.Schema.Types.ObjectId, 

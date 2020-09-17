@@ -4,11 +4,37 @@ const app = express()
 const routes = require('./routes')
 const PORT = /*process.env.PORT ||*/ 4000
 const cors = require('cors')//REMEMBER TO CONFIGURE THIS
-
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+//require passport and configure in middleware
+const passport = require('./passport')
 
 //middleware
 app.use(cors())//REMEMBER TO CONFIGURE THIS
 app.use(express.json()) //JSON parsing
+
+//cors
+const corsOptions = {
+    origin: ['http://localhost:4000'],
+    credentials: true,
+    optionsSuccessStatus: 204
+}
+app.use(cors(corsOptions))
+
+//sessions
+app.use(session({
+    store: new MongoStore({ url: "mongodb://localhost:27017/bander" }),
+    secret: "Rewrite this later with dot env!",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 //one hour maximum login time
+    }
+}))
+
+//middleware - passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 //routes
 app.use('/api/v1/users', routes.users)
