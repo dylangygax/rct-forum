@@ -85,7 +85,7 @@ const update = (req, res) => {
         if (err) console.log(`error in Screenshots#update: ${err}`)
         //res.send(`Screenshot update called`)
         res.status(200).json({
-            Screenshot: updatedScreenshot,
+            screenshot: updatedScreenshot,
             //message: `${updatedScreenshot.title} updated succesfully`
         })
     })

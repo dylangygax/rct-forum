@@ -13,7 +13,10 @@ const index = (req, res) => {
 
 const show = (req,res) => {
     db.Park.findById(req.params.id, (err, foundPark) => {
-        if (err) console.log(`error in parks#show: ${err}`)
+        if (err) {
+            console.log(`error in parks#show: ${err}`)
+            //res.json({error: `error in parks#show: ${err}`})
+        }
         //res.send(`park show called`)
         res.status(200).json({park: foundPark})
     })
