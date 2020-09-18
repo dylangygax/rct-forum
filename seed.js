@@ -13,8 +13,14 @@ const seed = async () => {
     await db.Comment.deleteMany({})
     //Users: REQUIRED: username
     const userData = [
-        {username: "Zarathustra"},
-        {username: "DorkyDan"}
+        {
+            username: "Zarathustra",
+            password: "test"
+        },
+        {
+            username: "DorkyDan",
+            password: "test"
+        }
     ]
     const createdUsers = await db.User.create(userData)
     //Parks: REQUIRED: title, image, user
